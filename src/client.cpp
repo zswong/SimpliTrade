@@ -13,9 +13,6 @@ void start_client(const char* server_ip, int port)
     int client_socket = 0;
     sockaddr_in serv_addr;
 
-    string message;
-    cout << "Enter order: ";
-    getline(cin, message);
 
     char buffer[1024] = {0};
 
@@ -37,11 +34,27 @@ void start_client(const char* server_ip, int port)
         return;
     }
 
-    send(client_socket, message.c_str(), message.size(), 0);
-    cout << "Sent: " << message << endl;
+    cout << "Connected to Server at " <<server_ip<< ": " << port;
+    string order;
+    while (1)
+    {
+        cout << "\nEnter order (or 'exit' to quit) : ";
+        getline(cin, order);
 
-    read(client_socket, buffer, 1024);
-    cout << "Server: " << buffer << endl;
+        if (order == "exit" | order == "Exit")
+        {
+            break;
+        }
+
+        send(client_socket, order.c_str(), order.size(), 0);
+        cout << "Sent: " << order << endl;
+
+        memset(buffer, 0, sizeof(buffer)); //clear buffer
+        read(client_socket, buffer, 1024);
+        cout << "Server: " << buffer << endl;
+
+    }
+    
     
     close(client_socket);
 }

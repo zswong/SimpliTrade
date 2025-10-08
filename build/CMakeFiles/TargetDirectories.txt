@@ -1,0 +1,3 @@
+/Users/zoewong/Desktop/SimpliTrade/build/CMakeFiles/SimpliTrade.dir
+/Users/zoewong/Desktop/SimpliTrade/build/CMakeFiles/edit_cache.dir
+/Users/zoewong/Desktop/SimpliTrade/build/CMakeFiles/rebuild_cache.dir

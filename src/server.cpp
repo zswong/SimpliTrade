@@ -25,7 +25,7 @@ void start_server(int port) {
 
     if (::bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0) 
     {
-        cerr << "Bind Failed" << endl;
+        perror("Bind Failed");
         return;
     }
 
@@ -37,18 +37,35 @@ void start_server(int port) {
 
    cout << "Server listening on port " << port << endl;
 
-    if ((new_socket = accept(server_fd, (struct sockaddr*)&address,(socklen_t*)&addrlen)) < 0) 
-    {
-        cerr << "Accept Failed" << endl;
-        return;
-    }
+   while(1)
+   {
+        cout << "Chpp";
+        if ((new_socket = accept(server_fd, (struct sockaddr*)&address,(socklen_t*)&addrlen)) < 0) 
+        {
+            cerr << "Accept Failed" << endl;
+            return;
+        }
+        cout << "Client Connected " << port << endl;
 
-    read(new_socket, buffer, 1024);
-    cout << "Received: " << buffer << endl;
+        while (1)
+        {
+            memset(buffer, 0, sizeof(buffer));
+            int valread = read(new_socket, buffer, 1024);
+            if (valread == 0) // client exited
+            {
+                break;
+            }
+            cout << "Received: " << buffer << endl;
+            send(new_socket, response, strlen(response), 0);
+            cout << "Sent acknowledgment" << endl;
 
-    send(new_socket, response, strlen(response), 0);
-    cout << "Sent acknowledgment" << endl;
+        }
+        close(new_socket);
+        cout << "Client disconnected." << endl;
+        break;
 
-    close(new_socket);
+   }
+
+
     close(server_fd);
 }

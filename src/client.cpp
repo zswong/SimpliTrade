@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-using namespace std;
 #include <string>
+using namespace std;
 
 void start_client(const char* server_ip, int port)
 {
@@ -38,10 +38,10 @@ void start_client(const char* server_ip, int port)
     string order;
     while (1)
     {
-        cout << "\nEnter order (or 'exit' to quit) : ";
+        cout << "\nEnter order ( TYPE 'exit' to quit or 'LIST' to see orders) : ";
         getline(cin, order);
 
-        if (order == "exit" | order == "Exit")
+        if (order == "exit" || order == "Exit")
         {
             break;
         }

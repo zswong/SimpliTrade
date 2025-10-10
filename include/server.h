@@ -1,7 +1,13 @@
 #pragma once
 
-#include <string>
+#include <iostream>
+#include <unistd.h>
 #include <netinet/in.h>
+#include <cstring>
+#include "server.h"
+#include <vector>
+#include <sstream>
+#include <algorithm>
 using namespace std;
 
 const int BUFFER_SIZE = 1024;
@@ -17,3 +23,13 @@ struct Order
     string ticker_sym;
     double price;
 };
+
+struct Trade 
+{
+    int buyId;
+    int sellId;
+    string ticker;
+    int amount;
+    double price;
+};
+
